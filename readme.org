@@ -7,6 +7,19 @@
   
 ** Usage
    
+   Add =[org.clojars.frozenlock/envision-cljs "0.1.0"]= to your
+   project dependencies.
+
+   You will also need to add the envision.js or envision.min.js in the
+   head of your webpage. Unfortunately it doesn't work with the google
+   closure compiler.
+
+   For full goodies, also add the envision.min.css!
+
+   All the envision stuff can be found on the  [[https://github.com/HumbleSoftware/envisionjs][envision repository]].
+   
+
+
    The wrapper takes care of converting clj maps to javascript, so you
    can use clojure hash-maps directly!
    
@@ -19,6 +32,6 @@
    
 ** License
    
-   Copyright © 2013 Christian Fortin
+   Copyright © 2013 Frozenlock
    
    Distributed under the Eclipse Public License, the same as Clojure.

@@ -1,5 +1,5 @@
-(defproject envision-cljs "0.1.0"
-  :description "Wrapper for the Envision.js library"
+(defproject org.clojars.frozenlock/envision-cljs "0.1.0"
+  :description "Wrapper for the Envision.js library (Graphs!)"
   :url "https://github.com/Frozenlock/envision-cljs"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
