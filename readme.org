@@ -1,0 +1,24 @@
+* envision-cljs
+
+  A clojurescript wrapper for the [[https://github.com/HumbleSoftware/envisionjs][Envision.js]] library
+  
+  [[./envision-cljs/raw/master/graph.png]]
+  (Click [[http://www.humblesoftware.com/envision][here]] for examples)
+  
+** Usage
+   
+   The wrapper takes care of converting clj maps to javascript, so you
+   can use clojure hash-maps directly!
+   
+   Either use the =timeseries= function directly, or build your own
+   graph making function.
+   
+   An example of how to build the data/config is shown with the
+   function =add-demo-graph=. (If you want to run it, make sure you
+   have a DIV with the id "graph" in your page")
+   
+** License
+   
+   Copyright © 2013 Christian Fortin
+   
+   Distributed under the Eclipse Public License, the same as Clojure.
