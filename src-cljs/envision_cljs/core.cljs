@@ -347,7 +347,7 @@ Optional config map:
     :config {:lite-lines {:lineWidth 1, :show true}};; config to be passed to Flotr2 underlying library
     :height 300}
    :summary
-   {:name "evision-timeseries-summay"
+   {:name "envision-timeseries-summary"
     :config {:lineWidth 1, :show true
              :handles {:show true}
              :selection {:mode :x}
