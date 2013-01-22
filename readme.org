@@ -7,29 +7,52 @@
   
 ** Usage
    
-   Add =[org.clojars.frozenlock/envision-cljs "0.1.1-SNAPSHOT"]= to your
+   Add =[org.clojars.frozenlock/envision-cljs "0.1.2"]= to your
    project dependencies.
 
-   You will also need to add the envision.js or envision.min.js in the
-   head of your webpage. Unfortunately it doesn't work with the google
-   closure compiler.
+   You will also need to add the =envision.js= or =envision.min.js= in the
+   head of your webpage. (Unfortunately it doesn't work with the google
+   closure compiler, so you have to add it manually.)
 
-   For full goodies, also add the envision.min.css!
+   For full goodies, also add the =envision.min.css=! If you don't add
+   the CSS, you'll have to style the 'handles' yourself. Without a CSS,
+   you will NOT see them.
 
    All the envision stuff can be found on the  [[https://github.com/HumbleSoftware/envisionjs][envision repository]].
-   
 
+** Clojurescript
 
    The wrapper takes care of converting clj maps to javascript, so you
    can use clojure hash-maps directly!
    
-   Either use the =timeseries= function directly, or build your own
-   graph making function.
-   
-   An example of how to build the data/config is shown with the
-   function =add-demo-graph=. (If you want to run it, make sure you
-   have a DIV with the id "graph" in your page")
-   
+   There is already two templates present in this wrapper:
+   =timeseries= and =finance=. Both can be used directly or as an
+   example to build your own graph making functions.
+
+   Almost every configuration is passed throught with smap, so be sure
+   to use the =recursive-merge= function in order to easily merge your
+   configs maps together!
+
+#+BEGIN_SRC clojure
+(ns my-ns
+  (:require [envision-cljs.core :as v]))
+
+;; First we need to generate some data
+(let [x-axis (range 500)
+      y1-axis (map #(js/Math.sin (/ % 10)) x-axis)
+      y2-axis (map #(js/Math.cos (/ % 50)) x-axis)
+      serie-1 [x-axis, y1-axis]
+      serie-2 {:points {:show true} ;; these config will be applied to each view (detail AND summary)
+               :shadowSize 4
+               :data [x-axis, y2-axis]}
+      raw-data [serie-1, serie-2]]
+
+;; now let's make a graph!
+  (v/timeseries {:container (js/document.getElementById "graph") ;; provided you have a div element "graph" in the DOM
+                 :detail {:data raw-data}
+                 :summary {:data raw-data}}))
+#+END_SRC
+
 ** License
    
    Copyright © 2013 Frozenlock

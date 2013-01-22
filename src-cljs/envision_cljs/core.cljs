@@ -76,7 +76,7 @@ This method is chainable."
 (defn draw
   "Draw the component."
   [component data options]
-  (.draw component options))
+  (.draw component (clj->js data) (clj->js options)))
 
 (defn trigger
   "Trigger an event on the componentonent's API.
@@ -346,6 +346,7 @@ Optional config map:
    {:name "envision-timeseries-detail"
     :config {:lite-lines {:lineWidth 1, :show true}};; config to be passed to Flotr2 underlying library
     :height 300}
+   
    :summary
    {:name "envision-timeseries-summary"
     :config {:lineWidth 1, :show true
@@ -354,6 +355,16 @@ Optional config map:
              :yaxis {:autoscale true
                      :autoscaleMargin 0.1}}
     :height 70}
+   
+   :volume
+   {:name "envision-timeseries-volume"
+    :config {:lineWidth 1, :show true
+             :yaxis {:autoscale true
+                     :autoscaleMargin 0.1}
+             :whiskers {:show true
+                        :lineWidth 3}}
+    :height 300}
+   
    :connection
    {:name "envision-timeseries-connection"
     :adapterConstructor quadratic-drawing ;; I don't even know if there's any other...
@@ -364,120 +375,76 @@ Optional config map:
 
 
 ;; implementation of a template timeSeries
-(defn timeseries [smap]
+(defn timeseries
+  "Implementation of the `timeseries' template. Provided smap must
+  have a container and data. Refer to the envision.js library for more details." [smap]
   ;; var
-   (let [merged-data (recursive-merge defaults smap)
-         vis (new-visualization {:name "envision-timeseries"})
-         selection (new-interaction)]
-     
-     ;; fill defaults
-     ;; we already merged the smap, no need for Flotr merge function.
-     
-     ;; build components
-     (let [detail (new-component (:detail merged-data))
-           connection (new-component (:connection merged-data))
-           summary (new-component (:summary merged-data))]
-       (-> vis
-           (add detail)
-           (add connection)
-           (add summary)
-           (render (:container smap)))
+  (let [merged-data (recursive-merge defaults smap)
+        vis (new-visualization {:name "envision-timeseries"})
+        selection (new-interaction)]
+    ;; build components
+    (let [detail (new-component (:detail merged-data))
+          connection (new-component (:connection merged-data))
+          summary (new-component (:summary merged-data))]
+      (-> vis
+          (add detail)
+          (add connection)
+          (add summary)
+          (render (:container smap)))
 
       ;; selection action
       (follower selection detail)
       (follower selection connection)
       (leader selection summary)
       (add selection default-selection-action (if-let [c (:selectionCallback smap)] {:callback c}))
-
+   
       ;; optional initial selection
       (when-let [s (:selection smap)]
         (trigger summary "select" s))
 
-      ;; now set `this'. Is there a more clojurian way to do this?
-      (this-as this       
-               (set! (.-vis this) vis)
-               (set! (.-selection this) selection)
-               (set! (.-detail this) detail)
-               (set! (.-summary this) summary)))))
-
-
+      {:visualization visualization
+       :detail detail
+       :connection connection
+       :summary summary})))
 ;; That's it! Everything else is learning how to customize the graphs!
 
 
+(defn finance
+  "Implementation of the `finance' template. Provided smap must
+  have a container and data. Refer to the envision.js library for more details."
+  [smap]
+  ;; var
+   (let [merged-data (recursive-merge defaults smap)
+         vis (new-visualization {:name "envision-finance"})
+         selection (new-interaction)]
+     
+     ;; build components
+     (let [detail (new-component (:detail merged-data))
+           connection (new-component (:connection merged-data))
+           summary (new-component (:summary merged-data))
+           volume (new-component (:volume merged-data))]
+       (-> vis
+           (add detail)
+           (add volume)
+           (add connection)
+           (add summary)
+           (render (:container smap)))
 
+       ;; selection action
+       (follower selection detail)
+       (follower selection volume)
+       (follower selection connection)
+       (leader selection summary)
+       (add selection default-selection-action (if-let [c (:selectionCallback smap)] {:callback c}))
 
-(defn add-demo-graph []
-  (let [container (js/document.getElementById "graph")
-        x-axis (range 500)
-        y1-axis (map #(js/Math.sin (/ % 10)) x-axis)
-        y2-axis (map #(js/Math.cos (/ % 50)) x-axis)
-        serie-1 [x-axis, y1-axis]
-        serie-2 {:points {:show true} ;; these config will be applied to each view (detail AND summary)
-                 :shadowSize 4
-                 :data [x-axis, y2-axis]}
-        raw-data [serie-1, serie-2]
-        options {:container container
+       ;; optional initial selection
+       (when-let [s (:selection smap)]
+         (trigger summary "select" s))
 
-                 ;; we can customize each plot individually
-                 ;; let's start by the 'detail' view
-                 :detail {:config {:lite-lines {:lineWidth 3
-                                                :fill true
-                                                :fillOpacity 0.2}
-                                    :yaxis {:autoscale true
-                                            :autoscaleMargin 0.05
-                                            :tickFormatter #(str %)
-                                            :noTicks 4
-                                            :showLabels true
-                                            :showMinorLabels true}
-                                   ;; you could also customize yaxis2 (see Flotr for more details)
-                                   :grid {:horizontalLines true
-                                          :tickColor "black"
-                                          :color "black"
-                                          :labelMargin 3
-                                          :outlineWidth 1
-                                          :backgroundColor {:colors [[0,"#fff"], [1,"#ccc"]],
-                                                            :start "top", :end "bottom"}
-                                          ;;multiple properties (such
-                                          ;;as backgroundColor) seems
-                                          ;;to be broken when using
-                                          ;;envision.min.js instead of
-                                          ;;envirion.js.
-                                          }
-                                   :HtmlText true
-                                   :xaxis {:mode "time" :labelsAngle 45}
-                                   :mouse {:track true
-                                           :trackAll true}}
-                          :data raw-data}
-
-                 ;; now the smaller 'summary' view
-                 :summary {:data raw-data
-                           :config {:xaxis {:tickFormatter #(str %)
-                                            :noTicks 4,
-                                            :showLabels true,
-                                            ;; Here we don't autoscale
-                                            ;; because we want it to
-                                            ;; match the detailed
-                                            ;; view.
-                                            }
-                                   :grid {:horizontalLines true
-                                          :tickColor "black"
-                                          :color "black"
-                                          :labelMargin 3
-                                          :outline "nsew"}
-                                    :HtmlText true ;; seems to be
-                                                   ;; necessary to
-                                                   ;; show something.
-                                                   ;; Another
-                                                   ;; envision.min.js
-                                                   ;; bug?
-                                    }}
-                 :selection {:data {:x {:min (* 0.1 (count x-axis))
-                                        :max (* 0.3 (count x-axis))}}}}]
-
-    (timeseries options) ;; DRAW IT!
-
-    ;; a more more simple graph can be obtained like this:
-    (comment
-      (timeseries {:container container
-                   :detail {:data raw-data}
-                   :summary {:data raw-data}}))))
+       ;; now set `this'. Is there a more clojurian way to do this?
+       (this-as this       
+                (set! (.-vis this) vis)
+                (set! (.-selection this) selection)
+                (set! (.-detail this) detail)
+                (set! (.-volume this) volume)
+                (set! (.-summary this) summary)))))
