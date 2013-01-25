@@ -402,7 +402,7 @@ Optional config map:
       (when-let [s (:selection smap)]
         (trigger summary "select" s))
 
-      {:visualization visualization
+      {:visualization vis
        :detail detail
        :connection connection
        :summary summary})))

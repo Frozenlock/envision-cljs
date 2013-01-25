@@ -5,7 +5,6 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.4.0"]]
   :plugins [[lein-cljsbuild "0.2.10"]]
-  :hooks [leiningen.cljsbuild]
   :cljsbuild {:builds {:main {:jar true
                               :source-path "src-cljs"
                               :compiler {:output-to "resources/public/js/cljs.js"
