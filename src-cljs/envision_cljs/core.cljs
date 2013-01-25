@@ -75,7 +75,7 @@ This method is chainable."
 
 (defn draw
   "Draw the component."
-  [component data options]
+  [component data & [options]]
   (.draw component (clj->js data) (clj->js options)))
 
 (defn trigger
