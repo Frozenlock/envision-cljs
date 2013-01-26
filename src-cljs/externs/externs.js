@@ -1,51 +1,89 @@
-var envision = {};
 
-// Component API
-envision.Component = function() {};
-envision.Component.render = function () {};
-envision.Component.draw = function () {};
-envision.Component.trigger = function () {};
-envision.Component.attach = function () {};
-envision.Component.detach = function () {};
-envision.Component.destroy = function () {};
-
-envision.components.QuadraticDrawing = function() {};
-
-
-
-// Visualization API
-
-envision.Visualization = function () {};
-envision.Visualization.add = function() {};
-envision.Visualization.render = function() {};
-envision.Visualization.remove = function() {};
-envision.Visualization.setPosition = function() {};
-envision.Visualization.indexOf = function() {};
-envision.Visualization.getComponent = function() {};
-envision.Visualization.isFirst = function() {};
-envision.Visualization.isLast = function() {};
-envision.Visualization.destroy = function() {};
-
-
-// Preprocessor API
-
-envision.Preprocessor = function () {};
-envision.Preprocessor.getData = function () {};
-envision.Preprocessor.setData = function () {};
-envision.Preprocessor.length = function () {};
-envision.Preprocessor.bound = function () {};
-envision.Preprocessor.subsampleMinMax = function () {};
-envision.Preprocessor.subsample = function () {};
-
-
-
-// Interaction API
-
-envision.Interaction = function () {};
-envision.Interaction.leader = function () {};
-envision.Interaction.follower = function () {};
-envision.Interaction.group = function () {};
-envision.Interaction.add = function () {};
-
-
-
+var envision = {
+    "_": function () {},
+    "bean": {
+        "add": function () {},
+        "one": function () {},
+        "remove": function () {},
+        "clone": function () {},
+        "fire": function () {},
+        "noConflict": function () {}
+    },
+    "bonzo": function () {},
+    "noConflict": function () {},
+    "Visualization": function () {},
+    "Component": function () {},
+    "Interaction": function () {},
+    "Preprocessor": function () {},
+    "actions": {
+        "hit": {
+            "events": {
+                "0": {},
+                "1": {}
+            }
+        },
+        "selection": {
+            "events": {
+                "0": {
+                    "handler": {},
+                    "consumer": {}
+                },
+                "1": {
+                    "handler": {},
+                    "consumer": {}
+                }
+            }
+        },
+        "zoom": {
+            "events": {
+                "0": {
+                    "handler": {},
+                    "consumer": {}
+                },
+                "1": {},
+                "2": {}
+            }
+        }
+    },
+    "adapters": {
+        "flotr": {
+            "Child": function () {}
+        },
+        "defaultOptions": {
+            "grid": {
+                "outlineWidth": {},
+                "labelMargin": {},
+                "horizontalLines": {},
+                "verticalLines": {}
+            },
+            "bars": {
+                "show": {},
+                "barWidth": {},
+                "fill": {},
+                "lineWidth": {},
+                "fillOpacity": {}
+            },
+            "lines": {
+                "lineWidth": {}
+            },
+            "xaxis": {
+                "margin": {},
+                "tickDecimals": {},
+                "showLabels": {}
+            },
+            "yaxis": {
+                "margin": {},
+                "showLabels": {}
+            },
+            "shadowSize": {}
+        }
+    },
+    "components": {
+        "QuadraticDrawing": function () {}
+    },
+    "templates": {
+        "Finance": function () {},
+        "TimeSeries": function () {},
+        "Zoom": function () {}
+    }
+}
