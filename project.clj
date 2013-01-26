@@ -1,4 +1,4 @@
-(defproject org.clojars.frozenlock/envision-cljs "0.1.4"
+(defproject org.clojars.frozenlock/envision-cljs "0.1.5"
   :description "Wrapper for the Envision.js library (Graphs!)"
   :url "https://github.com/Frozenlock/envision-cljs"
   :license {:name "Eclipse Public License"

@@ -440,11 +440,4 @@ Optional config map:
        ;; optional initial selection
        (when-let [s (:selection smap)]
          (trigger summary "select" s))
-
-       ;; now set `this'. Is there a more clojurian way to do this?
-       (this-as this       
-                (set! (.-vis this) vis)
-                (set! (.-selection this) selection)
-                (set! (.-detail this) detail)
-                (set! (.-volume this) volume)
-                (set! (.-summary this) summary)))))
+       )))
