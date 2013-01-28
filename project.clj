@@ -1,4 +1,4 @@
-(defproject org.clojars.frozenlock/envision-cljs "0.1.7"
+(defproject org.clojars.frozenlock/envision-cljs "0.1.8"
   :description "Wrapper for the Envision.js library (Graphs!)"
   :url "https://github.com/Frozenlock/envision-cljs"
   :license {:name "Eclipse Public License"
@@ -9,5 +9,5 @@
   :cljsbuild {:builds {:main {:jar true
                               :source-path "src-cljs"
                               :compiler {:output-to "resources/public/js/cljs.js"
-                                         :externs ["src-cljs/externs/externs.js"]}}}})
+                                         :externs ["src-cljs/clojure-js/externs.js"]}}}})
   
