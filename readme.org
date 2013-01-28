@@ -7,7 +7,7 @@
   
 ** Usage
    
-   Add =[org.clojars.frozenlock/envision-cljs "0.1.8"]= to your
+   Add =[org.clojars.frozenlock/envision-cljs "0.1.9"]= to your
    project dependencies.
 
    You will also need to add the =envision.js= or =envision.min.js= in the
