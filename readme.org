@@ -2,7 +2,7 @@
 
   A clojurescript wrapper for the [[https://github.com/HumbleSoftware/envisionjs][Envision.js]] library
   
-  [[./envision-cljs/raw/master/graph.png]]
+  [[./graph.png]]
   (Click [[http://www.humblesoftware.com/envision][here]] for examples)
   
 ** Usage
@@ -52,7 +52,7 @@
 :                  :detail {:data raw-data}
 :                  :summary {:data raw-data}}))
 
-
+   
 ** License
    
    Copyright © 2013 Frozenlock
