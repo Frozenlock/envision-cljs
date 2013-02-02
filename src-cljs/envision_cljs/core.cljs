@@ -88,7 +88,7 @@ Arguments are passed through to the API."
      (.trigger component arg (clj->js arg2))))
 
 (defn attach
-  "Attach to an event on the componentonent's API.
+  "Attach to an event on the component's API.
 
 Arguments are passed through to the API."
   ([component arg]
