@@ -14,6 +14,10 @@
    head of your webpage. (Unfortunately it doesn't work with the google
    closure compiler, so you have to add it manually.)
 
+   You can also include the minified envision js as a preamble in your
+   cljs project, by adding this:
+: :preamble["HumbleSoftware/envision.min.js"]
+
    For full goodies, also add the =envision.min.css=! If you don't add
    the CSS, you'll have to style the 'handles' yourself. Without a CSS,
    you will NOT see them.
