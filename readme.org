@@ -7,7 +7,7 @@
   
 ** Usage
    
-   Add =[org.clojars.frozenlock/envision-cljs "0.1.9"]= to your
+   Add =[org.clojars.frozenlock/envision-cljs "0.2.0"]= to your
    project dependencies.
 
    You will also need to add the =envision.js= or =envision.min.js= in the
@@ -15,8 +15,10 @@
    closure compiler, so you have to add it manually.)
 
    You can also include the minified envision js as a preamble in your
-   cljs project, by adding this:
-: :preamble["HumbleSoftware/envision.min.js"]
+   cljs project, by adding this
+: :preamble ["HumbleSoftware/envision.min.js"]
+   to the :compiler section of project.clj
+
 
    For full goodies, also add the =envision.min.css=! If you don't add
    the CSS, you'll have to style the 'handles' yourself. Without a CSS,
